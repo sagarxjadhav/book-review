@@ -1,0 +1,23 @@
+<article>
+  <section id="review-list" class="results">
+    <div class="flex">
+      <h1 class="section-title">Reviewed</h1>
+      <!-- No data message -->
+      <p *ngIf="reviews.length <= 0" class="no-data text-center">There are no reviews added yet!</p>
+    </div>
+    <!-- Review list -->
+    <div class="list-book">
+      <div class="prompt">
+        <div *ngFor="let review of reviews">
+          <app-book-card
+            [googleId]="review.googleId"
+            [rating]="review.rating"
+            [review]="review.review"
+            [review_id]="review._id"
+          >
+          </app-book-card>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>

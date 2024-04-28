@@ -1,0 +1,38 @@
+<article>
+  <section id="book-list" class="results">
+    <div class="flex">
+      <h1 class="section-title">{{query}}</h1>
+      <div>
+        <button
+          *ngIf="startIndex>0"
+          id="query-prev"
+          class="pagination prev"
+          style="display:inline-flex"
+          (click)="onPrev()"
+        >
+          ◀
+        </button>
+        <button
+          id="query-next"
+          class="pagination"
+          (click)="onNext()"
+        >
+          ▶
+        </button>
+      </div>
+    </div>
+
+    <div class="list-book">
+      <div class="prompt">
+        <div *ngFor="let book of books">
+            <app-book-card
+              [googleId]="book.id"
+            >
+            </app-book-card>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</article>
+

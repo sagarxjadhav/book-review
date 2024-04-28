@@ -1,0 +1,50 @@
+
+<div class="book" [ngStyle]="setStyle()">
+  <div class="card-body">
+    <a href={{googleLink}}>
+      <img class="thumbnail" src={{imageLink}} alt="cover">
+    </a>
+
+    <h3
+      class="book-title">
+      {{title}}
+    </h3>
+
+    <p class="card-text">{{description | description | slice:0:50 }}...</p>
+
+    <div *ngIf="!review; else reviewBlock">
+      <button
+        class="btn btn-primary"
+        (click)="openReviewCreateModal()">
+        Review
+      </button>
+    </div>
+
+    <ng-template #reviewBlock>
+      <div class="card-text">
+        <div>
+          Your Rating: {{rating}}/10
+        </div>
+        <div>
+          Your Review: {{review}}
+        </div>
+      </div>
+
+      <button
+        class="btn btn-primary edit-delete-btn"
+        (click)="openReviewEditModal()">
+        Edit
+      </button>
+      <button
+        class="btn btn-danger edit-delete-btn"
+        (click)="onDelete()">
+        Delete
+      </button>
+    </ng-template>
+
+  </div>
+</div>
+
+
+
+

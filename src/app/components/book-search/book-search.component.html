@@ -1,0 +1,69 @@
+<article>
+  <section id="search" class="results">
+    <div class="flex">
+      <input
+        id="search-box"
+        class="search-box"
+        placeholder="Search books by name, author, genre and etc ..."
+        aria-label="Search books"
+        [(ngModel)]="query"
+        (input)="searchBooks()"
+      />
+      <button
+        id="search"
+        class="info search-button"
+        (click)="searchBooks()"
+      >
+        Search
+      </button>
+    </div>
+    <div class="list-book search">
+      <div class="prompt">Enter a search term</div>
+    </div>
+
+    <!-- Search Results -->
+    <div *ngIf="query">
+      <div class="flex">
+        <h1 class="section-title">Searching: {{query}}</h1>
+        <div>
+          <button
+            *ngIf="startIndex>0"
+            id="query-prev"
+            class="pagination prev"
+            style="display:inline-flex"
+            (click)="onPrev()"
+          >
+            ◀
+          </button>
+          <button
+            id="query-next"
+            class="pagination"
+            (click)="onNext()"
+          >
+            ▶
+          </button>
+        </div>
+      </div>
+
+      <div class="list-book">
+        <div class="prompt">
+          <div *ngFor="let book of books">
+            <div *ngIf="book.volumeInfo.imageLinks; else noImageLinkBlock">
+              <app-book-card
+                [googleId]="book.id"
+              >
+              </app-book-card>
+            </div>
+            <ng-template #noImageLinkBlock>
+              <app-book-card
+                [googleId]="book.id"
+              >
+              </app-book-card>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</article>

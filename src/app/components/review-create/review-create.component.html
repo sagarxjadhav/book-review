@@ -1,0 +1,102 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <!-- Header -->
+    <div class="modal-header">
+      <a href={{googleLink}}>
+        <img class="" src={{imageLink}} alt="cover">
+      </a>
+      <h4 class="modal-title w-100" id="myModalLabel">
+        {{title}}
+        <span>
+          <div class="book-authors"><h6>{{authors}}</h6></div>
+        </span>
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modalRef.close()">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <!-- Description -->
+        <div *ngIf="shortDescription; else longDescBlock">
+          {{description | slice:0:232 | description}}...
+          <span>
+            <a class="info" (click)="onDescriptionSizeChange()">more</a>
+          </span>
+        </div>
+        <ng-template #longDescBlock>
+          {{description | description}}
+          <span>
+            <a class="info" (click)="onDescriptionSizeChange()">less</a>
+          </span>
+        </ng-template>
+
+        <!-- Rating -->
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <input
+            class="form-control"
+            type="number"
+            formControlName="rating"
+            min="0"
+            max="10" />
+          <div *ngIf="myForm['rating'].touched" class="text-danger">
+            <div *ngIf="myForm['rating'].errors?.['required']">
+              Rating is required.
+            </div>
+            <div *ngIf="myForm['rating'].errors?.['max']">
+              Max rating of 10 only.
+            </div>
+            <div *ngIf="myForm['rating'].errors?.['min']">
+              Min rating of 0 only.
+            </div>
+          </div>
+        </div>
+
+        <!-- Review -->
+        <div class="form-group">
+          <label for="review">Review</label>
+          <input class="form-control" type="text" formControlName="review" />
+          <div *ngIf="myForm['review'].touched" class="text-danger">
+            <div *ngIf="myForm['review'].errors?.['required']">
+              Review is required.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          mdbBtn
+          color="secondary"
+          class="btn btn-secondary"
+          aria-label="Close"
+          (click)="modalRef.close()"
+          mdbWavesEffect>
+          Close
+        </button>
+        <button
+          type="button"
+          mdbBtn
+          color="primary"
+          class="btn btn-primary"
+          mdbWavesEffect
+          [disabled]="!reviewForm.valid"
+          (click)="modalRef.close()"
+          type="submit">
+          Save!
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
